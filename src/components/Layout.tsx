@@ -35,7 +35,7 @@ export const Layout = ({ children }: LayoutProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-blue-50/30">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50/50 to-indigo-50/30">
       {/* Mobile Header */}
       <header className="lg:hidden fixed top-0 left-0 right-0 z-50 glass-sm border-b border-border h-16 flex items-center px-4">
         <div className="flex items-center justify-between w-full">
@@ -50,6 +50,7 @@ export const Layout = ({ children }: LayoutProps) => {
             size="icon"
             onClick={toggleMobileMenu}
             aria-label="Toggle menu"
+            className="hover-lift"
           >
             {isMobileMenuOpen ? (
               <X className="h-5 w-5" />
@@ -81,9 +82,9 @@ export const Layout = ({ children }: LayoutProps) => {
                   key={item.path}
                   to={item.path}
                   className={cn(
-                    "flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors",
+                    "flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200",
                     location.pathname === item.path
-                      ? "bg-primary/10 text-primary font-medium"
+                      ? "bg-primary/10 text-primary font-medium shadow-sm"
                       : "text-foreground hover:bg-secondary"
                   )}
                   onClick={() => setIsMobileMenuOpen(false)}
@@ -107,7 +108,7 @@ export const Layout = ({ children }: LayoutProps) => {
               </span>
             </Link>
             
-            <nav className="flex-1 space-y-2">
+            <nav className="flex-1 space-y-1.5">
               {navItems.map((item) => (
                 <Link
                   key={item.path}
@@ -115,11 +116,16 @@ export const Layout = ({ children }: LayoutProps) => {
                   className={cn(
                     "flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors",
                     location.pathname === item.path
-                      ? "bg-primary/10 text-primary font-medium"
-                      : "text-foreground hover:bg-secondary"
+                      ? "bg-primary/10 text-primary font-medium shadow-sm"
+                      : "text-foreground hover:bg-secondary hover:shadow-sm"
                   )}
                 >
-                  {item.icon}
+                  <motion.div
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {item.icon}
+                  </motion.div>
                   <span>{item.label}</span>
                 </Link>
               ))}

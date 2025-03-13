@@ -1,6 +1,7 @@
 
 import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 interface FinanceCardProps {
   children: ReactNode;
@@ -28,9 +29,14 @@ export const FinanceCard = ({
   };
 
   return (
-    <div
+    <motion.div
+      whileHover={hoverEffect ? { y: -4, boxShadow: "0 12px 30px rgba(0, 0, 0, 0.08)" } : {}}
+      whileTap={onClick ? { scale: 0.98 } : {}}
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
       className={cn(
-        "rounded-xl p-5 transition-all duration-300 animate-scale-in",
+        "rounded-xl p-5 transition-all duration-300",
         glassEffect ? "glass" : "bg-white border border-border",
         variants[variant],
         hoverEffect && "hover:shadow-lg hover:scale-[1.01] cursor-pointer",
@@ -40,6 +46,7 @@ export const FinanceCard = ({
       onClick={onClick}
     >
       {children}
-    </div>
+    </motion.div>
   );
 };
+

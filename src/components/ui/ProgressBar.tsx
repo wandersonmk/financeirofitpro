@@ -30,25 +30,29 @@ export const ProgressBar = ({
   };
 
   const sizeVariants = {
-    sm: "h-1",
-    md: "h-2",
-    lg: "h-3",
+    sm: "h-1.5",
+    md: "h-2.5",
+    lg: "h-3.5",
   };
 
   return (
-    <div className={cn("w-full space-y-1", className)}>
-      <div className={cn("w-full bg-secondary rounded-full overflow-hidden", sizeVariants[size])}>
+    <div className={cn("w-full space-y-2", className)}>
+      <div className={cn("w-full bg-secondary/80 rounded-full overflow-hidden shadow-inner", sizeVariants[size])}>
         <motion.div
           className={cn("h-full rounded-full", colorVariants[color])}
           initial={{ width: 0 }}
           animate={{ width: `${percent}%` }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          transition={{ 
+            duration: 0.8, 
+            ease: [0.34, 1.56, 0.64, 1],
+            delay: 0.1
+          }}
         />
       </div>
       {showText && (
         <div className="flex justify-between text-xs text-muted-foreground">
           <span>{value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>
-          <span>{percent.toFixed(0)}%</span>
+          <span className="font-medium">{percent.toFixed(0)}%</span>
         </div>
       )}
     </div>
